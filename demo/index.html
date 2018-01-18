@@ -1,30 +1,41 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
 
-    <title>aqa-tabs demo</title>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
 
-    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  <title>aqa-tabs demo</title>
 
-    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
-    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
-    <link rel="import" href="../aqa-tabs.html">
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
 
-    <custom-style>
-      <style is="custom-style" include="demo-pages-shared-styles">
-      </style>
-    </custom-style>
-  </head>
-  <body>
-    <div class="vertical-section-container centered">
-      <h3>Basic aqa-tabs demo</h3>
-      <demo-snippet>
-        <template>
-          <aqa-tabs></aqa-tabs>
-        </template>
-      </demo-snippet>
-    </div>
-  </body>
+  <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+  <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+  <link rel="import" href="../../aqa-font/aqa-font.html">
+  <link rel="import" href="../aqa-tabs.html">
+
+  <custom-style>
+    
+    <style is="custom-style" include="demo-pages-shared-styles">
+    </style>
+  </custom-style>
+</head>
+
+<body>
+  <div class="vertical-section-container centered">
+    <h3>Basic aqa-tabs demo</h3>
+    <demo-snippet>
+      <template>
+        <aqa-tabs id="menu" path="/tests">
+          <div path="/tests" label="จัดการแอปพลิเคชัน"></div>
+          <div path="/role" label="จัดการประเภทผู้ใช้งาน"></div>
+        </aqa-tabs>
+        <script>
+          document.getElementById('menu').query = {id:'1',name:'s'}
+        </script>
+      </template>
+    </demo-snippet>
+  </div>
+</body>
+
 </html>
