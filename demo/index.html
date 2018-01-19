@@ -26,13 +26,10 @@
     <h3>Basic aqa-tabs demo</h3>
     <demo-snippet>
       <template>
-        <aqa-tabs id="menu" path="/tests">
-          <div path="/tests" label="จัดการแอปพลิเคชัน"></div>
-          <div path="/role" label="จัดการประเภทผู้ใช้งาน"></div>
+        <aqa-tabs id="menu" selected="/tests">
+          <div name="/tests">จัดการแอปพลิเคชัน</div>
+          <div name="/role">จัดการประเภทผู้ใช้งาน</div>
         </aqa-tabs>
-        <script>
-          document.getElementById('menu').query = {id:'1',name:'s'}
-        </script>
       </template>
     </demo-snippet>
   </div>

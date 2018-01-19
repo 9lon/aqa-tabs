@@ -24,23 +24,23 @@
       }
 
       div>button:hover {
-        background-color: #E5E5E5;
+        background-color: #F3F7F9;
       }
 
       div[selected]>button {
         background-color: white;
-        color: black;
-        border-top: 1px solid #ddd;
+        color: #3E8EF7;
+        border-bottom: 2px solid #3E8EF7;
+        /* border-top: 1px solid #ddd;
         border-left: 1px solid #ddd;
         border-right: 1px solid #ddd;
         border-top-left-radius: 4px;
-        border-top-right-radius: 4px;
+        border-top-right-radius: 4px; */
       }
     </style>
-    <a id="link" href="#" style="display:none;">link</a>
     <div class="tab">
       <template is="dom-repeat" items="[[items]]">
-        <div selected$="[[_checkSeleted(item.path,path)]]">
+        <div selected$="[[_checkSeleted(item.name,selected)]]">
           <button class="tablinks font-MitrLight" on-click="tabsActive">[[item.label]]</button>
         </div>
       </template>
@@ -66,19 +66,9 @@
               return []
             }
           },
-          path: {
-            type: String
-          },
-          query: {
-            type: Object,
-            value: function () {
-              return {}
-            },
-            observer: '_queryChanged'
-          },
-          queryString: {
-            type: String,
-            value: ""
+          selected:{
+            type:String,
+            notify:true
           }
         }
       }
@@ -86,28 +76,17 @@
         super.connectedCallback();
         for (var index = 0; index < this.children.length; index++) {
           this.items.push({
-            path: this.children[index].getAttribute('path'),
-            label: this.children[index].getAttribute('label')
+            name: this.children[index].getAttribute('name'),
+            label: this.children[index].textContent
           })
         }
       }
       tabsActive(e) {
-        this.$.link.setAttribute('href', e.model.item.path+this.queryString)
-        this.$.link.click()
+        this.selected = e.model.item.name;
       }
 
       _checkSeleted(name, selected) {
         return name == selected
-      }
-
-      _queryChanged(obj) {
-        this.queryString == ""
-        var str = [];
-        for (var p in obj)
-          if (obj.hasOwnProperty(p)) {
-            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-          }
-        this.queryString = '?'+str.join("&");
       }
 
 
