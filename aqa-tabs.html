@@ -3,6 +3,14 @@
 <dom-module id="aqa-tabs">
   <template>
     <style>
+
+      :host {
+        display: block;
+      }
+      :host > ::slotted(:not(slot):not(.nylon-selected)) {
+        display: none !important;
+      }
+
       .tab {
         overflow: hidden;
         border-bottom: 1px solid #ccc;
@@ -35,20 +43,22 @@
     </style>
     <div class="tab">
       <template is="dom-repeat" items="[[items]]">
-        <div selected$="[[_checkSeleted(item.name,selected)]]">
-          <button class="tablinks font-MitrLight" on-click="tabsActive">[[item.label]]</button>
+        <div selected$="[[_checkSeleted(item.name,selected,index)]]">
+          <button class="tablinks font-MitrLight" on-click="tabsActive">[[item.label]] [[item.count]]</button>
         </div>
       </template>
     </div>
+
+    <slot></slot>
   </template>
 
   <script>
     /**
-     * `aqa-tabs`
+     * `aqa-tabs2`
      * 
      *
      * @customElement
-     * @polymer
+     * @polymer 
      * @demo demo/index.html
      */
     class AqaTabs extends Polymer.Element {
@@ -67,24 +77,55 @@
           }
         }
       }
+
       connectedCallback() {
         super.connectedCallback();
-        for (var index = 0; index < this.children.length; index++) {
+        for (let index = 0; index < this.children.length; index++) {
+          let el = this.children[index]
+          el.index = index
+
           this.items.push({
-            name: this.children[index].getAttribute('name'),
-            label: this.children[index].textContent
+            element: el,
+            label: el.label || '',
+            name: el.name   || ''
           })
+
+          el.addEventListener('name-changed', () => {
+            this.set(`items.${index}.name`, el.name || '')
+          })
+
+          el.addEventListener('label-changed', () => {
+            this.set(`items.${index}.label`, el.label || '')
+          })
+
+          el.addEventListener('count-changed', () => {
+            console.log('x')
+            this.set(`items.${index}.count`, el.count || '')
+          })
+          
+
         }
       }
+
       tabsActive(e) {
-        
         this.selected = e.model.item.name;
       }
 
-      _checkSeleted(name, selected) {
-        return name == selected
-      }
+      _checkSeleted(name, selected, i) {
+        
+        var result = name == selected
+        if(result){
+          
+          for (let index = 0; index < this.children.length; index++) {
+            this.children[index].classList.remove("nylon-selected")
+          }
+          
+          this.children[i].classList.add("nylon-selected");
 
+        }
+
+        return result
+      }
 
     }
 
