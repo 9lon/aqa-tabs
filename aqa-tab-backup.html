@@ -1,5 +1,5 @@
-<link rel="import" href="../polymer/polymer-element.html">
-<link rel="import" href="../aqa-font/aqa-font.html">
+<script type="module" src="../../@polymer/polymer/polymer-element.js"></script>
+<script type="module" src="../../aqa-font/aqa-font.js"></script>
 <dom-module id="aqa-tabs">
   <template>
     <style>
@@ -46,48 +46,53 @@
     /**
      * `aqa-tabs`
      * 
-     *
-     * @customElement
-     * @polymer
-     * @demo demo/index.html
-     */
-    class AqaTabs extends Polymer.Element {
-      static get is() { return 'aqa-tabs'; }
-      static get properties() {
-        return {
-          items: {
-            type: Array,
-            value: function () {
-              return []
-            }
-          },
-          selected:{
-            type:String,
-            notify:true
-          }
+  <script type="module">
+import { PolymerElement } from '../../@polymer/polymer/polymer-element.js';
+import '../../aqa-font/aqa-font.js';
+/**
+ * `aqa-tabs`
+ * 
+ *
+ * @customElement
+ * @polymer
+ * @demo demo/index.html
+ */
+class AqaTabs extends PolymerElement {
+  static get is() { return 'aqa-tabs'; }
+  static get properties() {
+    return {
+      items: {
+        type: Array,
+        value: function () {
+          return []
         }
+      },
+      selected:{
+        type:String,
+        notify:true
       }
-      connectedCallback() {
-        super.connectedCallback();
-        for (var index = 0; index < this.children.length; index++) {
-          this.items.push({
-            name: this.children[index].getAttribute('name'),
-            label: this.children[index].textContent
-          })
-        }
-      }
-      tabsActive(e) {
-        
-        this.selected = e.model.item.name;
-      }
-
-      _checkSeleted(name, selected) {
-        return name == selected
-      }
-
-
     }
+  }
+  connectedCallback() {
+    super.connectedCallback();
+    for (var index = 0; index < this.children.length; index++) {
+      this.items.push({
+        name: this.children[index].getAttribute('name'),
+        label: this.children[index].textContent
+      })
+    }
+  }
+  tabsActive(e) {
+    
+    this.selected = e.model.item.name;
+  }
 
-    window.customElements.define(AqaTabs.is, AqaTabs);
-  </script>
-</dom-module>
+  _checkSeleted(name, selected) {
+    return name == selected
+  }
+
+
+}
+
+window.customElements.define(AqaTabs.is, AqaTabs);
+</script>
