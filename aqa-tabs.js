@@ -1,6 +1,6 @@
 import { PolymerElement } from '@polymer/polymer/polymer-element.js';
-// import '@aqa/aqa-font/aqa-font.js';
-import '@aqa/aqa-font/aqa-mitr-font.js';
+// import '@nylon/aqa-font/aqa-font.js';
+import '@nylon/aqa-font/aqa-mitr-font.js';
 
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 /**
